@@ -51,7 +51,10 @@ Register can have a char in it, or a pointer to a string
 Arithmetic \
 `add` `sub` `mul` `div` `and` `or` `xor` `sll` `srl` - command (store register) (reg1/imm1) (reg2/imm2) \
 `not` (store register) (reg1/imm1) \
-`inc` `dec` (reg1, increments or decrements the value in that register by 1) \
+`inc` `dec` (reg1, increments or decrements the value in that register by 1)
+
+Comparison \
+`seq` `sne` `slt` `sgt` `sle` `sge` - command (store register) (reg1/imm1) (reg2/imm2)
 
 `load` `store` heap-ish \
 `mv` (reg1) (reg2) \

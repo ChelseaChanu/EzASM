@@ -1,6 +1,7 @@
 package com.ezasm.instructions;
 
 import com.ezasm.instructions.exception.InstructionLoadException;
+import com.ezasm.instructions.impl.ComparisonInstructions;
 import com.ezasm.simulation.Simulator;
 import com.ezasm.instructions.exception.IllegalArgumentException;
 import com.ezasm.instructions.exception.IllegalInstructionException;
@@ -27,6 +28,7 @@ public class InstructionDispatcher {
     static {
         // load the instructions
         registerInstructions(ArithmeticInstructions.class);
+        registerInstructions(ComparisonInstructions.class);
     }
 
     /**
