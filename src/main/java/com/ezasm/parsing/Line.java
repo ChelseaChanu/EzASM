@@ -1,5 +1,7 @@
 package com.ezasm.parsing;
 
+import java.util.Map;
+
 /**
  * The tokenized representation of a line.
  * Consists of:
@@ -21,6 +23,7 @@ public class Line {
      * @throws ParseException if any of the given String tokens cannot be parsed into their
      * corresponding types.
      */
+    //TODO: Make labels argument immutable. (Maybe ImmutableMap library?)
     public Line(String instruction, String storeRegister, String[] arguments) throws ParseException {
         if(!Lexer.isRegister(storeRegister)) {
             throw new ParseException("Error parsing register '" + storeRegister + "'");
@@ -39,6 +42,8 @@ public class Line {
                 this.arguments[i] = new ImmediateToken(arguments[i]);
             } else if(Lexer.isRegister(arguments[i])) {
                 this.arguments[i] = new RegisterToken(arguments[i]);
+            } else if(Lexer.isLabelArg(arguments[i])) {
+                this.arguments[i] = new LabelArgToken(arguments[i]);
                 // Code for parsing a dereference
 //            } else if(Lexer.isDereference(arguments[i])) {
 //                this.arguments[i] = new DereferenceToken(arguments[i]);

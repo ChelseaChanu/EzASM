@@ -1,6 +1,7 @@
 package com.ezasm.instructions;
 
 import com.ezasm.instructions.exception.InstructionLoadException;
+import com.ezasm.instructions.impl.BranchInstructions;
 import com.ezasm.instructions.impl.ComparisonInstructions;
 import com.ezasm.simulation.Simulator;
 import com.ezasm.instructions.exception.IllegalArgumentException;
@@ -29,6 +30,7 @@ public class InstructionDispatcher {
         // load the instructions
         registerInstructions(ArithmeticInstructions.class);
         registerInstructions(ComparisonInstructions.class);
+        registerInstructions(BranchInstructions.class);
     }
 
     /**
@@ -132,7 +134,7 @@ public class InstructionDispatcher {
      * {@link IllegalArgumentException IllegalArgumentException} if the provided parsed arguments cannot
      * fit to the instruction (not yet implemented).
      */
-    public void execute(Line line) throws InstructionDispatchException {
+    public void execute(Line line, Map<String, Integer> labels) throws InstructionDispatchException {
         DispatchInstruction dispatch = instructions.get(line.getInstruction().getText());
         if (dispatch == null) throw new IllegalInstructionException(line.getInstruction().getText());
 
@@ -140,7 +142,7 @@ public class InstructionDispatcher {
         // TODO assume loaded for now
         assert object != null;
 
-        dispatch.invoke(object, line);
+        dispatch.invoke(object, line, labels);
 
     }
 

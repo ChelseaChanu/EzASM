@@ -12,6 +12,7 @@ import com.ezasm.parsing.RightHandToken;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 /**
  * An instruction which can be dispatched. This has all
@@ -53,7 +54,7 @@ public class DispatchInstruction {
      * @param parent the parent instruction handler. An instance of {@link DispatchInstruction#getParent()}.
      * @param line the parsed line to interpret.
      */
-    public void invoke(Object parent, Line line) {
+    public void invoke(Object parent, Line line, Map<String, Integer> labels) {
 
         // TODO, change construction based on argument types. This will be necessary for deref
         Object[] args = new Object[line.getArguments().length + 1];
@@ -66,6 +67,8 @@ public class DispatchInstruction {
                 args[i] = new RegisterInput(((RegisterToken) token).getRegisterNumber());
             } else if(token instanceof ImmediateToken) {
                 args[i] = new ImmediateInput(Conversion.longToBytes(((ImmediateToken) token).getValue()));
+            } else if(token instanceof LabelArgToken) {
+                args[i] = new ImmediateInput(Conversion.longToBytes(labels.get(((LabelArgToken) token).getLabel())));
             } else {
                 // Invalid token type
                 throw new IllegalArgumentException();

@@ -115,7 +115,7 @@ public class Simulator {
     public void executeLine(Line line) throws ParseException {
         if(line == null) return;
         try {
-            instructionDispatcher.execute(line);
+            instructionDispatcher.execute(line, labels);
             Window.updateAll();
         } catch (InstructionDispatchException e) {
             throw new ParseException(e.getMessage());

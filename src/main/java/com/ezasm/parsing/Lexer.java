@@ -100,6 +100,16 @@ public class Lexer {
     }
 
     /**
+     * Determines if the given token is a label in argument form or not.
+     * @param token the token String in question.
+     * @return true if the given token is a valid label, false otherwise.
+     */
+    public static boolean isLabelArg(String token) {
+        if(token.length() < 1) return false;
+        return !Character.isDigit(token.charAt(0)) && !isNumeric(token);
+    }
+
+    /**
      * Determines if a given token is a valid instruction or not.
      * @param token the token String in question.
      * @return true if the token is a registered instruction, false otherwise.
