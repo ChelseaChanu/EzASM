@@ -54,10 +54,11 @@ public class Lexer {
      * @return true if the line is a label, false otherwise;
      */
     public static boolean isLabel(String line) {
+
         if(line.length() < 1) return false;
         int colon = line.indexOf(':');
         if (colon == -1) return isAlNum(line) && !InstructionDispatcher.getInstructions().containsKey(line);
-        return (colon == line.charAt(line.length()-1)) && isAlNum(line.substring(0, colon));
+        return (colon == line.length()-1) && isAlNum(line.substring(0, colon));
     }
 
     /**
@@ -132,6 +133,7 @@ public class Lexer {
         if(Lexer.isComment(line)) return null;
         if(Lexer.isLabel(line)) {
             labels.putIfAbsent(line, number);
+            System.out.println("Found Label");
             return null;
         }
         String[] tokens = line.split("[ ,]");
